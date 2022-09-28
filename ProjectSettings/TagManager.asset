@@ -15,8 +15,8 @@ TagManager:
   - 
   - BackGround
   - Level
+  - Decoration
   - Collision
-  - 
   - 
   - 
   - 
@@ -49,4 +49,7 @@ TagManager:
     locked: 0
   - name: Collision
     uniqueID: 597472569
+    locked: 0
+  - name: Decoration
+    uniqueID: 3321571965
     locked: 0
