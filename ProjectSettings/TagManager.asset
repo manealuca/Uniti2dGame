@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Wall
+  - SpawnPoint
+  - PowerUp
+  - HealingPotion
   layers:
   - Default
   - TransparentFX
@@ -14,9 +19,9 @@ TagManager:
   - 
   - 
   - BackGround
-  - Level
-  - Decoration
   - Collision
+  - 
+  - 
   - 
   - 
   - 
@@ -41,7 +46,7 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Level
+  - name: 
     uniqueID: 3675937229
     locked: 0
   - name: BackGround
@@ -49,7 +54,4 @@ TagManager:
     locked: 0
   - name: Collision
     uniqueID: 597472569
-    locked: 0
-  - name: Decoration
-    uniqueID: 3321571965
     locked: 0
