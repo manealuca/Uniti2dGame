@@ -22,6 +22,14 @@ public class EnemySpawnController : MonoBehaviour
         
     }
 
+    public void ResetInitialStatus()
+    {/*
+        Enemy[]EnemyInstantiate = FindObjectsOfType<Enemy>();
+        foreach(var item  in EnemyInstantiate)
+        {
+            Destroy(item);
+        }*/
+    }
     IEnumerator SpawnNewEnemy()
     {
         while (true)

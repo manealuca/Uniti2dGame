@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     float horizontal;
     float vertical;
     Vector3 direction;
-    [SerializeField] float speed = 5.0f;
+    public float speed = 5.0f;
     public Transform aim;
     [SerializeField] Camera camera;
     [SerializeField] Transform bulletPrefab;
@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
     Vector2 facingDirection;
     bool gunLoaded = true;
     float fireRate = .65f;
-    public float healt = 5.0f;
+    public int health = 5;
+    SpriteRenderer sprite;
     //powerupstate
     public bool powerShot = false;
     public bool multiShot=false;
@@ -27,11 +28,12 @@ public class Player : MonoBehaviour
     public int shieldTimer =0;
     public float invulnerableTime = 3;
     public bool invulnerable = false;
+    Vector3 InitialPosition;
     //public static Player Instanse;
 
     private void Awake()
     {
-       /* if(Instanse is null)
+       /*if(Instanse is null)
         {
             Instanse = this;
         }*/
@@ -39,8 +41,11 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sprite = GetComponent<SpriteRenderer>();
+        InitialPosition = this.transform.position;
         shieldPrefab = GetComponentInChildren<Shield>();
         shieldPrefab.gameObject.SetActive(shield);
+        UIManager.Instanse.UpdateHealth(health);
     }
 
     // Update is called once per frame
@@ -167,17 +172,32 @@ public class Player : MonoBehaviour
         if (invulnerable) return;
         if (!shield)
         {
-            healt -= damage;
+            health -= damage;
+            UIManager.Instanse.UpdateHealth(health);
             multiShot = false;
             invulnerable = true;
             StartCoroutine(MakeVulnerableAgain());
-            if (healt <= 0) Death();
+            if (health <= 0) Death();
         }
         shieldPrefab.TakeDamage(damage);
     }
     public void Death()
     {
-        gameObject.SetActive(false);
 
+        sprite.enabled = false;
+        GameManager.Instance.GameOver();
+
+    }
+
+    public void ResetStatus()
+    {
+        sprite.enabled = true;
+        speed = 5;
+        this.transform.position = InitialPosition;
+        health = 5;
+        invulnerable = false;
+        shield = false;
+        multiShot = false;
+        powerShot = false;
     }
 }

@@ -14,6 +14,14 @@ public class PowerUp : MonoBehaviour
     }
     public PowerUpType powerUpType;
 
+    private void Update()
+    {
+        if(GameManager.Instance.State == GameManager.GameState.GameOver)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     public void DestroyOnContact()
     {
         Destroy(this.gameObject,0.15F);

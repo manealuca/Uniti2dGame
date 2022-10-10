@@ -6,6 +6,11 @@ using UnityEngine;
 public class CheckPoint : MonoBehaviour
 {
     [SerializeField] int addedTime = 10;
+
+    private void Update()
+    {
+        if(GameManager.Instance.State == GameManager.GameState.GameOver) Destroy(gameObject);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
 

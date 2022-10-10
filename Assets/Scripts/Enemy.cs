@@ -26,7 +26,15 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if(GameManager.Instance.State == GameManager.GameState.GameOver)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Move();
+        }
+
     }
     public void Move()
     {
@@ -43,6 +51,7 @@ public class Enemy : MonoBehaviour
     {
         GameManager.Instance.Score += scorePoints;
         Destroy(this.gameObject);
+        UIManager.Instanse.UpdateScore(GameManager.Instance.Score);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

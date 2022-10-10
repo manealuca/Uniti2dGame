@@ -56,4 +56,23 @@ public class ItemSpawner : MonoBehaviour
             Instantiate(powerUpPrefab[random], randomPosition, Quaternion.identity);
         }
     }
+
+    public void RestartInitialStatus()
+    {
+        /*PowerUp[] powerUpsIntantiate = FindObjectsOfType<PowerUp>();
+        Healing[] HealingInstantiate = FindObjectsOfType<Healing>();
+        CheckPoint[] CheckpointInstantiate = FindObjectsOfType<CheckPoint>(); 
+        foreach (var item in powerUpsIntantiate)
+        {
+            Destroy(item.gameObject);
+        }
+        foreach(var item in HealingInstantiate)
+        {
+            Destroy(item.gameObject);
+        }
+        foreach (var item in CheckpointInstantiate)
+        {
+            Destroy(item.gameObject);
+        }*/
+    }
 }
