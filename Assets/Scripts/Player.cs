@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] Camera camera;
     [SerializeField] Transform bulletPrefab;
     [SerializeField] Shield shieldPrefab;
+    Animator anim;
     Vector2 facingDirection;
     bool gunLoaded = true;
     float fireRate = .65f;
@@ -26,9 +27,11 @@ public class Player : MonoBehaviour
     public bool shield = false;
     public int powerShotTimer =0;
     public int shieldTimer =0;
-    public float invulnerableTime = 3;
+    public float invulnerableTime = 1.5f;
     public bool invulnerable = false;
     Vector3 InitialPosition;
+    float blinkRate = 0.01f;
+
     //public static Player Instanse;
 
     private void Awake()
@@ -41,6 +44,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         InitialPosition = this.transform.position;
         shieldPrefab = GetComponentInChildren<Shield>();
@@ -58,12 +62,27 @@ public class Player : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
+        if (horizontal != 0 || vertical != 0)
+            anim.Play("PlayerRun");
+        else anim.Play("PlayerIdle");
+
         direction.x = horizontal;
         direction.y = vertical;
 
-        if (horizontal> 0) this.transform.localScale = new Vector3(-1,1,0);
-        else this.transform.localScale = new Vector3(1,1,0);
-        
+
+        /*if (horizontal > 0) this.transform.localScale = new Vector3(-1, 1, 0);
+        else this.transform.localScale = new Vector3(1, 1, 0);
+        */
+        if (aim.position.x > transform.position.x)
+            sprite.flipX = true;
+        else {
+            if (aim.position.x < transform.position.x)
+            {
+                sprite.flipX = false;
+            }
+
+        }
+
         transform.position += direction * speed * Time.deltaTime;
 
         //Aim Movement
@@ -164,8 +183,11 @@ public class Player : MonoBehaviour
 
     public IEnumerator MakeVulnerableAgain()
     {
+        StartCoroutine(BlinkRoutine());
         yield return new WaitForSeconds(invulnerableTime);
+        sprite.color = Color.white;
         invulnerable = false;
+      
     }
     public void TakeDamage(int damage)
     {
@@ -186,6 +208,21 @@ public class Player : MonoBehaviour
 
         sprite.enabled = false;
         GameManager.Instance.GameOver();
+
+    }
+
+    public IEnumerator BlinkRoutine()
+    {
+        int t = 10;
+        while (t > 0)
+        {
+            sprite.enabled = false;
+            sprite.color = Color.red;
+            yield return new WaitForSeconds(t*blinkRate);
+            sprite.enabled = true;
+            yield return new WaitForSeconds(t * blinkRate);
+            t--;
+        }
 
     }
 

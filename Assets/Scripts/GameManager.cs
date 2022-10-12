@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -72,15 +73,22 @@ public class GameManager : MonoBehaviour
         UIManager.Instanse.ShowGameOverScreen();
     }
 
+    public void MainMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScreen");
+    }
+
     public void Restart()
     {
-        score = 0;
-        State = GameState.Play;
-        time = InitialTime;
-        dificulty = InitialDificulty;
-        UIManager.Instanse.UpdateHealth(5);
-        UIManager.Instanse.UpdateTime(InitialTime);
-        UIManager.Instanse.UpdateScore(0);
-        FindObjectOfType<Player>().ResetStatus();
+        /* score = 0;
+         State = GameState.Play;
+         time = InitialTime;
+         dificulty = InitialDificulty;
+         UIManager.Instanse.UpdateHealth(5);
+         UIManager.Instanse.UpdateTime(InitialTime);
+         UIManager.Instanse.UpdateScore(0);
+         FindObjectOfType<Player>().ResetStatus();*/
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
     }
+
 }

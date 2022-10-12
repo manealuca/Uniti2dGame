@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text [] hudArray;
     [SerializeField] string[] hudText;
     [SerializeField] GameObject GameOverScreen;
+    [SerializeField] GameObject TitleScreen;
     int finaleScore;
     public static UIManager Instanse;
 
@@ -51,5 +52,10 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.Restart();
     }
 
+    public void StartGame()
+    {
+        TitleScreen.SetActive(false);
+
+    }
 
 }
